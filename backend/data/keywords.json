@@ -1,0 +1,4 @@
+{
+  "easy": ["typo", "docs", "readme"],
+  "hard": ["refactor", "architecture", "optimize"]
+}
