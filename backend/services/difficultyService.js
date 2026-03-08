@@ -1,5 +1,4 @@
-import keywords from "../data/keywords.json" assert { type: "json" };
-
+import keywords from "../data/keywords.json" with { type: "json" };
 export const labelDifficulty = (issue) => {
   let score = 0;
 

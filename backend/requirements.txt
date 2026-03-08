@@ -1,0 +1,6 @@
+express
+cord
+dotenv
+jsonwebtoken
+bcryptjs
+axios
