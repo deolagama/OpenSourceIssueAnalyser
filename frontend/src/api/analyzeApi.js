@@ -1,8 +1,30 @@
 import axios from "axios";
 
-const API = "https://reimagined-dollop-7vw9p5p94p773x9v9-5000.app.github.dev";
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
+const api = axios.create({
+  baseURL: API_BASE,
+  timeout: 30000,
+  headers: { "Content-Type": "application/json" }
+});
 
 export const analyzeRepo = async (repo) => {
-  const res = await axios.post(`${API}/api/analyze`, { repo });
+  // Use the public route (no JWT required)
+  const res = await api.post("/api/analyze/public", { repo });
+  return res.data;
+};
+
+export const loginUser = async (username, password) => {
+  const res = await api.post("/api/auth/login", { username, password });
+  return res.data;
+};
+
+export const registerUser = async (username, password) => {
+  const res = await api.post("/api/auth/register", { username, password });
+  return res.data;
+};
+
+export const healthCheck = async () => {
+  const res = await api.get("/api/health");
   return res.data;
 };
