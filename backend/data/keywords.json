@@ -1,4 +1,4 @@
 {
-  "easy": ["typo", "docs", "readme"],
-  "hard": ["refactor", "architecture", "optimize"]
+  "easy": ["typo", "docs", "readme", "documentation", "beginner", "good first issue", "starter", "trivial", "minor", "simple", "small", "fix typo", "update docs"],
+  "hard": ["refactor", "architecture", "optimize", "performance", "security", "concurrency", "race condition", "memory", "breaking change", "api change", "deprecat", "migration", "scalab"]
 }
