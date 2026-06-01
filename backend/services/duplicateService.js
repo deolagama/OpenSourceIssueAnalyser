@@ -1,5 +1,4 @@
-import { similarity } from "../utils/textSimilarity.js";
-
+import { similarity } from "../utils/textSimilarity.js"; 
 export const findDuplicates = (issues) => {
   let duplicates = [];
 

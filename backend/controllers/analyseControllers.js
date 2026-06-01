@@ -11,7 +11,7 @@ export const analyzeRepo = async (req, res) => {
 
     let issues = await fetchIssues(owner, name);
 
-    issues = issues.map(issue => labelDifficulty(issue));
+    issues = await Promise.all(issues.map(issue => labelDifficulty(issue)));
     issues = markStaleIssues(issues);
 
     const duplicates = findDuplicates(issues);

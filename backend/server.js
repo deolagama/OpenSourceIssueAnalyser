@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import analyzeRoutes from "./routes/analyzeRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import { isRedisAvailable } from "./config/redis.js";
 
 dotenv.config();
 
@@ -31,9 +32,13 @@ app.use("/api/auth", authRoutes);
 // Analyze routes (public + protected)
 app.use("/api/analyze", analyzeRoutes);
 
-// Health check endpoint
+// Health check endpoint — also reports Redis status
 app.get("/api/health", (req, res) => {
-  res.json({ status: "OK", timestamp: new Date().toISOString() });
+  res.json({
+    status: "OK",
+    timestamp: new Date().toISOString(),
+    cache: isRedisAvailable() ? "redis:connected" : "redis:unavailable (running without cache)"
+  });
 });
 
 app.listen(PORT, () => {
