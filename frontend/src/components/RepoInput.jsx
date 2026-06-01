@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Icon } from "./Icons";
 
 const POPULAR_REPOS = [
   "sugarlabs/musicblocks",
@@ -24,7 +25,7 @@ export default function RepoInput({ onAnalyze, isLoading }) {
     <div className="search-section">
       <form onSubmit={handleSubmit}>
         <div className="search-box">
-          <span className="search-icon">🔍</span>
+          <Icon name="search" size={16} color="var(--text-muted)" />
           <input
             id="repo-input"
             className="search-input"
@@ -47,7 +48,8 @@ export default function RepoInput({ onAnalyze, isLoading }) {
               </>
             ) : (
               <>
-                ✦ Analyze
+                <Icon name="analyze" size={15} color="white" />
+                Analyze
               </>
             )}
           </button>

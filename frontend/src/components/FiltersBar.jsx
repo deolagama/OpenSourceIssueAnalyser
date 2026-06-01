@@ -1,21 +1,22 @@
 import React from "react";
+import { Icon } from "./Icons";
 
 const FILTERS = [
-  { key: "all", label: "All Issues", icon: "📋" },
-  { key: "Easy", label: "Easy", icon: "🟢", colorClass: "green" },
-  { key: "Medium", label: "Medium", icon: "🟡", colorClass: "orange" },
-  { key: "Hard", label: "Hard", icon: "🔴", colorClass: "red" },
-  { key: "stale", label: "Stale", icon: "⏱", colorClass: "blue" },
-  { key: "firstTimer", label: "First Timer", icon: "🌱", colorClass: "red" }
+  { key: "all",       label: "All Issues",   icon: "list"          },
+  { key: "Easy",      label: "Easy",         icon: "checkCircle",  colorClass: "green"  },
+  { key: "Medium",    label: "Medium",       icon: "bar",          colorClass: "orange" },
+  { key: "Hard",      label: "Hard",         icon: "alertTriangle",colorClass: "red"    },
+  { key: "stale",     label: "Stale",        icon: "clock",        colorClass: "blue"   },
+  { key: "firstTimer",label: "First Timer",  icon: "leaf",         colorClass: "red"    }
 ];
 
 const SORT_OPTIONS = [
-  { value: "default", label: "Default order" },
-  { value: "comments_desc", label: "Most comments" },
-  { value: "comments_asc", label: "Fewest comments" },
-  { value: "newest", label: "Newest first" },
-  { value: "oldest", label: "Oldest first" },
-  { value: "title_asc", label: "Title A–Z" }
+  { value: "default",       label: "Default order"  },
+  { value: "comments_desc", label: "Most comments"  },
+  { value: "comments_asc",  label: "Fewest comments"},
+  { value: "newest",        label: "Newest first"   },
+  { value: "oldest",        label: "Oldest first"   },
+  { value: "title_asc",     label: "Title A–Z"      }
 ];
 
 export default function FiltersBar({
@@ -24,8 +25,7 @@ export default function FiltersBar({
   searchQuery,
   onSearchChange,
   sortBy,
-  onSortChange,
-  firstTimerIds = []
+  onSortChange
 }) {
   return (
     <div className="filters-bar">
@@ -37,7 +37,12 @@ export default function FiltersBar({
             className={`filter-btn ${activeFilter === f.key ? `active ${f.colorClass || ""}` : ""}`}
             onClick={() => onFilterChange(f.key)}
           >
-            {f.icon} {f.label}
+            <Icon
+              name={f.icon}
+              size={13}
+              color={activeFilter === f.key ? "white" : "var(--text-muted)"}
+            />
+            {f.label}
           </button>
         ))}
       </div>
@@ -57,7 +62,7 @@ export default function FiltersBar({
         id="search-filter-input"
         className="search-filter"
         type="text"
-        placeholder="🔎 Search issues…"
+        placeholder="Search issues…"
         value={searchQuery}
         onChange={(e) => onSearchChange(e.target.value)}
       />

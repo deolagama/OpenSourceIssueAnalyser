@@ -1,4 +1,5 @@
 import React from "react";
+import { Icon } from "./Icons";
 
 function getPriorityDots(difficulty) {
   const levels = { Easy: 1, Medium: 2, Hard: 3 };
@@ -14,8 +15,8 @@ function getDaysSince(dateStr) {
   const days = Math.floor((Date.now() - new Date(dateStr)) / (1000 * 60 * 60 * 24));
   if (days < 1) return "today";
   if (days === 1) return "1 day ago";
-  if (days < 30) return `${days} days ago`;
-  if (days < 365) return `${Math.floor(days / 30)} mo ago`;
+  if (days < 30) return `${days}d ago`;
+  if (days < 365) return `${Math.floor(days / 30)}mo ago`;
   return `${Math.floor(days / 365)}y ago`;
 }
 
@@ -29,12 +30,10 @@ export default function IssueCard({ issue, isFirstTimer, isDuplicate, animDelay 
       <div className="card-top">
         <span className="card-number">#{issue.number}</span>
         <div className="card-badges">
-          <span className={`badge badge-${diff.toLowerCase()}`}>
-            {diff === "Easy" ? "🟢" : diff === "Hard" ? "🔴" : "🟡"} {diff}
-          </span>
-          {issue.stale && <span className="badge badge-stale">⏱ Stale</span>}
-          {isFirstTimer && <span className="badge badge-first-timer">🌱 First Timer</span>}
-          {isDuplicate && <span className="badge badge-duplicate">🔀 Duplicate</span>}
+          <span className={`badge badge-${diff.toLowerCase()}`}>{diff}</span>
+          {issue.stale     && <span className="badge badge-stale">Stale</span>}
+          {isFirstTimer    && <span className="badge badge-first-timer">First Timer</span>}
+          {isDuplicate     && <span className="badge badge-duplicate">Duplicate</span>}
         </div>
       </div>
 
@@ -47,25 +46,25 @@ export default function IssueCard({ issue, isFirstTimer, isDuplicate, animDelay 
       <div className="card-meta">
         {issue.comments !== undefined && (
           <span className="meta-item">
-            <span className="icon">💬</span>
-            {issue.comments} comment{issue.comments !== 1 ? "s" : ""}
+            <Icon name="messageCircle" size={12} color="var(--text-muted)" />
+            {issue.comments}
           </span>
         )}
         {issue.updated_at && (
           <span className="meta-item">
-            <span className="icon">🕐</span>
+            <Icon name="clock" size={12} color="var(--text-muted)" />
             {getDaysSince(issue.updated_at)}
           </span>
         )}
         {issue.user?.login && (
           <span className="meta-item">
-            <span className="icon">👤</span>
+            <Icon name="user" size={12} color="var(--text-muted)" />
             {issue.user.login}
           </span>
         )}
         {issue.assignee && (
           <span className="meta-item">
-            <span className="icon">📎</span>
+            <Icon name="pin" size={12} color="var(--text-muted)" />
             Assigned
           </span>
         )}
@@ -78,16 +77,16 @@ export default function IssueCard({ issue, isFirstTimer, isDuplicate, animDelay 
               key={label.id}
               className="label-tag"
               style={{
-                background: `#${label.color}22`,
+                background: `#${label.color}18`,
                 color: `#${label.color}`,
-                borderColor: `#${label.color}44`
+                borderColor: `#${label.color}40`
               }}
             >
               {label.name}
             </span>
           ))}
           {issue.labels.length > 4 && (
-            <span className="label-tag">+{issue.labels.length - 4} more</span>
+            <span className="label-tag">+{issue.labels.length - 4}</span>
           )}
         </div>
       )}
@@ -99,16 +98,14 @@ export default function IssueCard({ issue, isFirstTimer, isDuplicate, animDelay 
           rel="noopener noreferrer"
           className="card-link-btn"
         >
-          View on GitHub →
+          View on GitHub
+          <Icon name="arrowRight" size={13} color="var(--accent)" />
         </a>
         <div className="priority-bar">
           <span>Priority</span>
           <div className="priority-dots">
             {dots.map((d, i) => (
-              <span
-                key={i}
-                className={`dot ${d.filled ? `filled ${d.cls}` : ""}`}
-              />
+              <span key={i} className={`dot ${d.filled ? `filled ${d.cls}` : ""}`} />
             ))}
           </div>
         </div>
